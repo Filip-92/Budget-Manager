@@ -1,0 +1,72 @@
+# depslib dependency file v1.0
+1303067212 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\markup.cpp
+	<stdio.h>
+	"Markup.h"
+	<errno.h>
+	<iconv.h>
+	<windows.h>
+	<mbstring.h>
+
+1303067212 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\markup.h
+	<stdlib.h>
+	<string.h>
+	<string>
+	<afx.h>
+
+1609934093 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\user.cpp
+	"User.h"
+
+1609943743 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\user.h
+	<iostream>
+
+1609940393 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\auxiliarymethods.cpp
+
+1609947583 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\budgetmanager.cpp
+	"BudgetManager.h"
+
+1609947320 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\main.cpp
+	<iostream>
+	<iomanip>
+	<ctime>
+	"Markup.h"
+	"BudgetManager.h"
+
+1609943584 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\xmlfile.cpp
+	"XmlFile.h"
+
+1609942658 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\xmlfile.h
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	"Markup.h"
+
+1609943786 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithusers.cpp
+	"FileWithUsers.h"
+
+1609943786 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithusers.h
+	<iostream>
+	<vector>
+	"XmlFile.h"
+	<fstream>
+	<cstdlib>
+	"User.h"
+	"AuxiliaryMethods.h"
+
+1609940373 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\auxiliarymethods.h
+
+1609944091 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\usermanager.cpp
+	"UserManager.h"
+
+1609943754 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\usermanager.h
+	<iostream>
+	<vector>
+	<windows.h>
+	<fstream>
+	<sstream>
+	"User.h"
+	"FileWithUsers.h"
+
+1609946590 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\budgetmanager.h
+	<iostream>
+	"UserManager.h"
+
