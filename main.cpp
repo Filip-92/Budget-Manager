@@ -38,6 +38,10 @@ int main()
                 system("cls");
                 budgetManager.userLoggingIn();
                 break;
+            case '3':
+                system("cls");
+                budgetManager.displayAllUsers();
+                break;
             case '9':
                 exit(0);
                    break;
@@ -75,11 +79,11 @@ int main()
                     break;
                 case '6':
                     system("cls");
-                    //ksiazkaAdresowa.usunAdresata();
+                    budgetManager.changePasswordOfLoggedUser();
                     break;
                 case '7':
                     system("cls");
-                    //ksiazkaAdresowa.zmianaHaslaZalogowanegoUzytkownika();
+                    budgetManager.userLogout();
                     break;
             default:
                 cout << endl << "No such option in User Menu." << endl << endl;

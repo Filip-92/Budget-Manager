@@ -52,6 +52,7 @@ vector <User> FileWithUsers::loadUsersFromTheFile()
             users.push_back(user);
         }
         cout << "Number of users is: " << users.size() << endl;
+        Sleep(100);
         return users;
 
     }

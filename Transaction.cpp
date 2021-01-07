@@ -1,6 +1,6 @@
-#include "UserManager.h"
+#include "Transaction.h"
 
-User UserManager::inputNewUserData()
+/*User UserManager::inputNewUserData()
 {
     User user;
 
@@ -174,4 +174,4 @@ void UserManager::displayAllUsers()
 void UserManager::saveAllUsersInTheFile()
 {
     fileWithUsers.saveUsersToFile(users);
-}
+}*/

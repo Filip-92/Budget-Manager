@@ -19,12 +19,14 @@
 1609943743 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\user.h
 	<iostream>
 
-1609940393 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\auxiliarymethods.cpp
+1610043662 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\auxiliarymethods.cpp
+	<algorithm>
+	"AuxiliaryMethods.h"
 
 1609947583 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\budgetmanager.cpp
 	"BudgetManager.h"
 
-1609947320 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\main.cpp
+1610032812 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\main.cpp
 	<iostream>
 	<iomanip>
 	<ctime>
@@ -40,24 +42,27 @@
 	<stdlib.h>
 	"Markup.h"
 
-1609943786 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithusers.cpp
+1610034973 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithusers.cpp
 	"FileWithUsers.h"
 
-1609943786 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithusers.h
+1610034973 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithusers.h
 	<iostream>
 	<vector>
+	<windows.h>
 	"XmlFile.h"
 	<fstream>
 	<cstdlib>
 	"User.h"
 	"AuxiliaryMethods.h"
 
-1609940373 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\auxiliarymethods.h
+1610039571 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\auxiliarymethods.h
+	<iostream>
+	<sstream>
 
-1609944091 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\usermanager.cpp
+1610035906 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\usermanager.cpp
 	"UserManager.h"
 
-1609943754 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\usermanager.h
+1610035919 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\usermanager.h
 	<iostream>
 	<vector>
 	<windows.h>
@@ -66,7 +71,65 @@
 	"User.h"
 	"FileWithUsers.h"
 
-1609946590 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\budgetmanager.h
+1610032181 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\budgetmanager.h
 	<iostream>
 	"UserManager.h"
+
+1610039198 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\transaction.cpp
+	"Transaction.h"
+
+1610047045 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\transactionmanager.cpp
+	"TransactionManager.h"
+
+1610038609 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithexpenses.cpp
+
+1610043653 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\transaction.h
+	<iostream>
+
+1610044233 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\datemanager.cpp
+	"DateManager.h"
+
+1610044135 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\datemanager.h
+	<iostream>
+	<vector>
+	<time.h>
+	<string>
+	<Windows.h>
+
+1610030942 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\income.cpp
+
+1610045136 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\expense.cpp
+
+1610047239 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\transactionmanager.h
+	<vector>
+	<algorithm>
+	"Income.h"
+	"Expense.h"
+	"FileWithIncomes.h"
+	"FileWithExpenses.h"
+	"DateManager.h"
+	"AuxiliaryMethods.h"
+
+1610045258 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\income.h
+	"Transaction.h"
+
+1610045118 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\expense.h
+
+1610044540 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithincomes.h
+	<iostream>
+	<vector>
+	"XmlFile.h"
+	<cstdlib>
+	"Income.h"
+	"TransactionManager.h"
+	"AuxiliaryMethods.h"
+
+1610045317 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager\filewithexpenses.h
+	<iostream>
+	<vector>
+	"XmlFile.h"
+	<cstdlib>
+	"Expense.h"
+	"TransactionManager.h"
+	"AuxiliaryMethods.h"
 
