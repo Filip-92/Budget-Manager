@@ -5,7 +5,7 @@
 #include <vector>
 #include <windows.h>
 #include "XmlFile.h"
-#include <fstream>
+#include "Markup.h"
 #include <cstdlib>
 
 #include "User.h"
@@ -15,11 +15,9 @@ using namespace std;
 
 class FileWithUsers : public XmlFile
 {
-    const string USERS_FILE_NAME;
 public:
-    FileWithUsers(string fileWithUsersName);
-    bool doesFileExist();
-    void saveUsersToFile(vector<User> users);
+    FileWithUsers(string fileWithUsersName) : XmlFile(fileWithUsersName) {};
+    void saveUsersToFile(vector <User> users);
     vector <User> loadUsersFromTheFile();
 };
 

@@ -66,6 +66,16 @@ bool UserManager::doesUserExist(string name, string surname)
     return false;
 }
 
+string UserManager::changeTheFirstLetterToUppercaseAndTheRestToLowercase(string text)
+{
+    if (!text.empty())
+    {
+        transform(text.begin(), text.end(), text.begin(), ::tolower);
+        text[0] = toupper(text[0]);
+    }
+    return text;
+}
+
 int UserManager::userLoggingIn()
 {
     User user;
@@ -93,11 +103,10 @@ int UserManager::userLoggingIn()
                     return loggedInUserId;
                 }
             }
-            cout << "Incorrect password has been input 3 times." << endl;
+            cout << "Incorrect password has been entered 3 times." << endl;
             system("pause");
             return 0;
         }
-        itr++;
     }
     cout << "No user with such login exists." << endl << endl;
     system("pause");

@@ -1,11 +1,8 @@
 #ifndef USERMANAGER_H
 #define USERMANAGER_H
 
-#include <iostream>
 #include <vector>
-#include <windows.h>
-#include <fstream>
-#include <sstream>
+#include <algorithm>
 
 #include "User.h"
 #include "FileWithUsers.h"
@@ -18,6 +15,7 @@ class UserManager
     vector <User> users;
 
     User inputNewUserData();
+    User loggedInUser;
     int getNewUserId();
     bool doesLoginExist(string login);
     bool doesUserExist(string name, string surname);
@@ -30,6 +28,7 @@ class UserManager
     users = fileWithUsers.loadUsersFromTheFile();
     };
     void userRegistration();
+    string changeTheFirstLetterToUppercaseAndTheRestToLowercase(string text);
     void displayAllUsers();
     void userLogout();
     bool isUserLoggedIn();

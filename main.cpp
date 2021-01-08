@@ -5,20 +5,10 @@
 #include "BudgetManager.h"
 
 using namespace std;
-/*
-int main()
-{
-    //Ustawienie aktualnej daty
-    time_t t = time(nullptr);
-    tm tm = *localtime(&t);
-    cout.imbue(locale());
-    cout << "Time: " << put_time(&tm, "%c %Z") << '\n';
-    return 0;
-}*/
 
 int main()
 {
-    BudgetManager budgetManager("Users.xml", "Income.xml");
+    BudgetManager budgetManager("Users.xml", "Income.xml", "Expense.xml");
 
     char choice;
 
@@ -60,10 +50,11 @@ int main()
                 {
                 case '1':
                     system("cls");
-                    //ksiazkaAdresowa.dodajAdresata();
+                    budgetManager.addIncome();
                     break;
                 case '2':
-                    //ksiazkaAdresowa.wypiszWszystkichAdresatow();
+                    system("cls");
+                    budgetManager.addExpense();
                     break;
                 case '3':
                     system("cls");

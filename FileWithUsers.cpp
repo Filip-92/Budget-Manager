@@ -1,18 +1,14 @@
 #include "FileWithUsers.h"
 
-FileWithUsers::FileWithUsers(string FileWithUsers):USERS_FILE_NAME(FileWithUsers){}
-
-bool FileWithUsers::doesFileExist()
+void FileWithUsers::saveUsersToFile (vector <User> users)
 {
-    ifstream ufile(USERS_FILE_NAME.c_str());
-    return ufile.good();
-}
-
-void FileWithUsers::saveUsersToFile(vector <User> users)
-{
-    cout<<"saving users file"<<endl;
-    xml.SetDoc( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" );
-    xml.AddElem("USERS");
+    CMarkup xml;
+    bool fileExists = xml.Load( getNameFile() );
+    if (!fileExists)
+    {
+        xml.SetDoc( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" );
+        xml.AddElem("USERS");
+    }
     xml.IntoElem();
     for (int i=0;i<users.size();i++)
     {
@@ -25,15 +21,16 @@ void FileWithUsers::saveUsersToFile(vector <User> users)
         xml.AddElem("PASSWORD",users.at(i).getPassword());
         xml.OutOfElem();
     }
-    xml.Save(USERS_FILE_NAME);
+    xml.Save(getNameFile());
 }
 
 vector <User> FileWithUsers::loadUsersFromTheFile()
 {
     User user;
     vector <User> users;
-    if (doesFileExist()){
-        xml.Load(USERS_FILE_NAME);
+    CMarkup xml;
+    int i = 0;
+    xml.Load(getNameFile());
         xml.FindElem("USERS");
         xml.IntoElem();
         while ( xml.FindElem("USERS")) {
@@ -54,10 +51,5 @@ vector <User> FileWithUsers::loadUsersFromTheFile()
         cout << "Number of users is: " << users.size() << endl;
         Sleep(100);
         return users;
-
-    }
-    else {
-        return users;
-    }
 
 }

@@ -1,6 +1,70 @@
-#include "DateManager.h"
+#include "Date.h"
 
-string DateManager::getCurrentDate()
+void Date::setYear (int year)
+{
+    this -> year = year;
+}
+void Date::setMonth (int month)
+{
+    while (!conditionalMonth(month))
+    {
+        month = auxiliaryMethods.conversionStringToInt(auxiliaryMethods.loadLine());
+    }
+    this -> month = month;
+}
+void Date::setDay (int day)
+{
+    while (!conditionalDay(day))
+    {
+        day = auxiliaryMethods.conversionStringToInt(auxiliaryMethods.loadLine());
+    }
+    this -> day = day;
+}
+int Date::getYear ()
+{
+    return year;
+}
+int Date::getMonth ()
+{
+    return month;
+}
+int Date::getDay ()
+{
+    return day;
+}
+bool Date::conditionalMonth (int month)
+{
+    if(month > 12 || month < 0)
+    {
+        cout << "Podales miesiac: " << month << ", nie ma takiego miesiaca, podaj inny: " << endl;
+        return false;
+    }
+    return true;
+}
+
+bool Date::conditionalDay (int day)
+{
+    int maxDay;
+    if (month == 2)
+    {
+        if(isLeap(year) == true)
+            maxDay = 29;
+        else
+            maxDay = 28;
+    }
+    else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+        maxDay = 31;
+    else
+        maxDay = 30;
+    if(day > maxDay || day < 0)
+    {
+        cout << "Podales date:" <<year<<"-"<<month<<"-"<<day<<", ten miesiac nie posaida takiego dnia, podaj inny dzien: " << endl;
+        return false;
+    }
+    return true;
+}
+
+string Date::getCurrentDate()
 {
     time_t timeNow;
     tm *datestr;
@@ -20,7 +84,7 @@ string DateManager::getCurrentDate()
     return date;
 }
 
-int DateManager::getDays(string date)
+int Date::getDays(string date)
 {
     int year,month,day,days{0};
     year=stoi(date.substr(0,4));
@@ -46,7 +110,7 @@ int DateManager::getDays(string date)
     return days;
 }
 
-int DateManager::getNumberOfDays(int month, int year)
+int Date::getNumberOfDays(int month, int year)
 {
     if (month == 4 || month == 6 || month == 9 || month == 11)
         return 30;
@@ -64,7 +128,7 @@ int DateManager::getNumberOfDays(int month, int year)
     return 31;
 }
 
-bool DateManager::isLeap(int year)
+bool Date::isLeap(int year)
 {
     if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
         return true;
@@ -72,7 +136,7 @@ bool DateManager::isLeap(int year)
         return false;
 }
 
-bool DateManager::checkDate(string date)
+bool Date::checkDate(string date)
 {
     if(date.length()!=10)
         return false;

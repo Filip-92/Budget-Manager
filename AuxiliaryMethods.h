@@ -1,6 +1,5 @@
-#ifndef AUXILIARYMETHODS_H
-#define AUXILIARYMETHODS_H
-
+#ifndef AUXILIATYMETHODS_H
+#define AUXILIATYMETHODS_H
 #include <iostream>
 #include <sstream>
 
@@ -8,8 +7,13 @@ using namespace std;
 
 class AuxiliaryMethods
 {
-public:
-    static double fixDouble(string number);
-};
 
+    public:
+    string loadLine();
+    char loadCharacter();
+    int conversionStringToInt(string integer);
+    string converionIntToString(int integer);
+    string converionFloatToString( float number );
+    double fixDouble(string number);
+};
 #endif

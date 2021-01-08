@@ -1,17 +1,31 @@
 #ifndef INCOME_H
 #define INCOME_H
-#include "Transaction.h"
+#include <iostream>
+#include "Date.h"
 
 using namespace std;
 
-class Income: public Transaction
+class Income : public Date
 {
-    string item;
+    string incomeName;
+    float incomeValue;
+    int incomeIndex;
 
 public:
-    Income();
-    friend class TransactionManager;
-    friend class FileWithIncomes;
-};
 
+    void setIncomeName(string);
+    void setIncomeValue (float);
+    void setIncomeIndex (int);
+
+    string getIncomeName ();
+    float getIncomeValue ();
+    int getIncomeIndex ();
+
+    int transactionId;
+    int userId;
+    string date;
+    int dayNr;
+    double amount;
+    string item;
+};
 #endif
