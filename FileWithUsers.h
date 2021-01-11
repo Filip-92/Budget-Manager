@@ -1,24 +1,20 @@
 #ifndef FILEWITHUSERS_H
 #define FILEWITHUSERS_H
 
-#include <iostream>
-#include <vector>
-#include <windows.h>
-#include "XmlFile.h"
+#include "TextFile.h"
 #include "Markup.h"
-#include <cstdlib>
-
 #include "User.h"
-#include "AuxiliaryMethods.h"
+#include <vector>
 
 using namespace std;
 
-class FileWithUsers : public XmlFile
+class FileWithUsers : public TextFile
 {
 public:
-    FileWithUsers(string fileWithUsersName) : XmlFile(fileWithUsersName) {};
-    void saveUsersToFile(vector <User> users);
-    vector <User> loadUsersFromTheFile();
-};
+    FileWithUsers(string nameFileWtihUsers) : TextFile(nameFileWtihUsers) {};
+    void addUserToFile (User user);
+    vector <User> loadUsersFromFile();
+    void changePasswordSignInUser (User);
 
+};
 #endif

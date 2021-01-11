@@ -1,88 +1,70 @@
 #include <iostream>
-#include <iomanip>
-#include <ctime>
-#include "Markup.h"
 #include "BudgetManager.h"
 
 using namespace std;
 
 int main()
 {
-    BudgetManager budgetManager("Users.xml", "Income.xml", "Expense.xml");
-
-    char choice;
+ char choice;
+    BudgetManager budgetManager ("users.xml","income.xml", "expense.xml");
 
     while (true)
     {
-        if (budgetManager.isUserLoggedIn() == false)
+        if (budgetManager.isTheUserSignIn() == false)
         {
-            choice = budgetManager.selectOptionFromMainMenu();
+            choice = budgetManager.chooseOptionAtMeinMenu();
 
             switch (choice)
             {
             case '1':
-                system("cls");
                 budgetManager.userRegistration();
                 break;
             case '2':
-                system("cls");
-                budgetManager.userLoggingIn();
-                break;
-            case '3':
-                system("cls");
-                budgetManager.displayAllUsers();
+                budgetManager.SignInUser();
                 break;
             case '9':
                 exit(0);
-                   break;
+                break;
             default:
-                cout << endl << "No such option in Main Menu." << endl << endl;
+                cout << endl << "No such option in the menu available." << endl << endl;
                 system("pause");
                 break;
             }
         }
         else
         {
-            choice = budgetManager.selectOptionFromUserMenu();
+            choice = budgetManager.chooseOptionAtOperationMenu();
 
             switch (choice)
             {
-                {
-                case '1':
-                    system("cls");
+            case '1':
                     budgetManager.addIncome();
-                    break;
-                case '2':
-                    system("cls");
-                    budgetManager.addExpense();
-                    break;
-                case '3':
-                    system("cls");
-                    //ksiazkaAdresowa.wyszukajAdresatowPoImieniu();
-                    break;
-                case '4':
-                    system("cls");
-                    //ksiazkaAdresowa.wyszukajAdresatowPoNazwisku();
-                    break;
-                case '5':
-                    system("cls");
-                    //ksiazkaAdresowa.edytujAdresata();
-                    break;
-                case '6':
-                    system("cls");
-                    budgetManager.changePasswordOfLoggedUser();
-                    break;
-                case '7':
-                    system("cls");
-                    budgetManager.userLogout();
-                    break;
-            default:
-                cout << endl << "No such option in User Menu." << endl << endl;
-                system("pause");
                 break;
-                }
+            case '2':
+                    budgetManager.addExpense();
+                break;
+            case '3':
+                    budgetManager.showBalanceSheetForTheCurrentMonth();
+                break;
+            case '4':
+                    budgetManager.showBalanceSheetForThePreviousMonth();
+                break;
+            case '5':
+                    budgetManager.showBalanceSheetForTheSelectedPeriod();
+                break;
+            case '6':
+                    budgetManager.changePasswordOfLoggedUser();
+                break;
+            case '7':
+                    budgetManager.signOutUser();
+                break;
             }
+        }
+
+
+
     }
+
+    return 0;
 }
-return 0;
-}
+

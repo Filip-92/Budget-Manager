@@ -1,5 +1,5 @@
-#ifndef UZYTKOWNIK_H
-#define UZYTKOWNIK_H
+#ifndef USER_H
+#define USER_H
 
 #include <iostream>
 
@@ -7,25 +7,22 @@ using namespace std;
 
 class User
 {
-        int id;
-        string name;
-        string surname;
-        string login;
-        string password;
+    int userId;
+    string login;
+    string password;
+    string name;
+    string surname;
+public:
+    void setLogin(string);
+    void setPassword(string);
+    void setName(string);
+    void setSurname(string);
+    void setUserId(int);
 
-    public:
-        void setId(int newId);
-        void setName(string newName);
-        void setSurname(string newSurname);
-        void setLogin(string newLogin);
-        void setPassword(string newPassword);
-
-        int getId();
-        string getName();
-        string getSurname();
-        string getLogin();
-        string getPassword();
-        friend class FileWithUsers;
+    string getLogin ();
+    string getPassword ();
+    string getName ();
+    string getSurname ();
+    int getUserId ();
 };
-
 #endif

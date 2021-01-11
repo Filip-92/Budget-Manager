@@ -1,5 +1,5 @@
-#ifndef OPERATIONMANAGER_H
-#define OPERATIONMANAGER_H
+#ifndef TRANSACTIONMANAGER_H
+#define TRANSACTIONMANAGER_H
 
 #include "User.h"
 #include "AuxiliaryMethods.h"
@@ -15,10 +15,9 @@
 
 using namespace std;
 
-class OperationManager
+class TransactionManager
 {
     AuxiliaryMethods auxiliaryMethods;
-    Date date;
     User loggedInUser;
     FileWithIncome fileWithIncome;
     FileWithExpense fileWithExpense;
@@ -29,10 +28,10 @@ class OperationManager
     float sum;
 
 
-    bool checkCorrectnessFormat (string);
+    bool checkFormatCorrectness (string);
     bool checkTheTimeInterval(int, int, int);
-    void showIncomeForTheSpecifitMonth (int);
-    void showExpenseForTheSpecifitMonth (int);
+    void showIncomeForTheSpecificMonth (int);
+    void showExpenseForTheSpecificMonth (int);
 
     Income setDateToVectorIncome (string date);
     Expense setDateToVectorExpense (string date);
@@ -44,7 +43,8 @@ class OperationManager
     int assignExpenseIndex();
 
 public:
-    OperationManager (string nameFileWithIncome, string nameFileWithExpense, User LOGGEDINUSER): fileWithIncome (nameFileWithIncome, LOGGEDINUSER), loggedInUser(LOGGEDINUSER), fileWithExpense(nameFileWithExpense, LOGGEDINUSER)
+    TransactionManager (string nameFileWithIncome, string nameFileWithExpense, User LOGGEDINUSER):
+        fileWithIncome (nameFileWithIncome, LOGGEDINUSER), loggedInUser(LOGGEDINUSER), fileWithExpense(nameFileWithExpense, LOGGEDINUSER)
     {
         incomes = fileWithIncome.loadIncomeFromFile();
         expenses = fileWithExpense.loadExpenseFromFile();

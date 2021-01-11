@@ -1,86 +1,45 @@
-#include "OperationManager.h"
+#include "TransactionManager.h"
 
-void OperationManager::addIncome()
-{
-    Income income;
-    int selectDate;
-    string customDate, item;
-    char choice;
-    cout << "Select an Option:" << endl;
-    cout << "Do you want to input a transaction with (1) today's date or (2) custom date?" << endl;
-    cout << endl;
-    cout << "Your choice: ";
-    cin >> choice;
-
-        switch (choice)
-        {
-        case '1':
-            income.date = date.getCurrentDate();
-            income.dayNr = date.getDays(date.getCurrentDate());
-            break;
-        case '2':
-            do
-            {
-            cout << "Input custom date in format 'yyyy-mm-dd': ";
-            cin >> customDate;
-            break;
-            }
-            while(date.checkDate(customDate)!=1);
-            income.date = customDate;
-            income.dayNr = date.getDays(customDate);
-        }
-    cout << "Please enter the item of the transaction: ";
-    cin >> item;
-    cout << "Enter amount: ";
-    string amount;
-    cin >> amount;
-    income.amount = auxiliaryMethods.fixDouble(amount);
-    income.userId = loggedInUser.getId();
-    income.transactionId = incomes.size();
-
-    incomes.push_back(income);
-    fileWithIncome.addIncomeToFile(income);
-}
-
-/*void OperationManager::addIncome()
+void TransactionManager::addIncome()
 {
     system("cls");
-    char character;
+    char choice;
     string date = "";
     string incomeName = "";
     string incomeValue ="";
     Income income;
-    cout << "Czy przychod dotyczy dzisjszego dnia? potwierdz literka t " << endl;
-    character = auxiliaryMethods.loadCharacter();
-    if (character == 't')
+    cout << "Is the income from (1) today or from (2) some specific day? " << endl;
+    cout << endl << "Your choice: ";
+    choice = auxiliaryMethods.loadCharacter();
+    if (choice == '1')
     {
-        SYSTEMTIME systemTime;
-        GetSystemTime(&systemTime);
-        income.setYear(systemTime.wYear);
-        income.setMonth(systemTime.wMonth);
-        income.setDay(systemTime.wDay);
+    SYSTEMTIME systemTime;
+    GetSystemTime(&systemTime);
+    income.setYear(systemTime.wYear);
+    income.setMonth(systemTime.wMonth);
+    income.setDay(systemTime.wDay);
     }
-    else
+    else if (choice == '2')
     {
         do
         {
             do
             {
-                cout << "podaj date przychodu w formacie rrrr-mm-dd: " << endl;
+                cout << "Enter Income date in format 'yyyy-mm-dd': " << endl;
                 date = auxiliaryMethods.loadLine();
             }
-            while (!checkCorrectnessFormat(date));
+            while (!checkFormatCorrectness(date));
             income = setDateToVectorIncome(date);
         }
         while(!checkTheTimeInterval(income.getYear(), income.getMonth(), income.getDay()));
 
 
     }
-    cout << "Czego dotyczy przychod? " << endl;
+    cout << "What is the item of the income? " << endl;
     incomeName = auxiliaryMethods.loadLine();
     income.setIncomeName(incomeName);
 
-    cout << "Podaj wartosc przychodu: " << endl;
+    cout << "Input the Income amount: " << endl;
     incomeValue = auxiliaryMethods.loadLine();
     incomeValue = replaceCommaWithPeriod(incomeValue);
     income.setIncomeValue(atof(incomeValue.c_str()));
@@ -88,11 +47,11 @@ void OperationManager::addIncome()
     income.setIncomeIndex(assignIncomeIndex());
     fileWithIncome.addIncomeToFile(income);
     incomes.push_back(income);
-    cout << "Przychod zostal dodany" << endl;
+    cout << "Income added successfully" << endl;
     Sleep(1500);
-}*/
+}
 
-Income OperationManager::setDateToVectorIncome (string date)
+Income TransactionManager::setDateToVectorIncome (string date)
 {
     date += '-';
     int length = date.length();
@@ -125,28 +84,29 @@ Income OperationManager::setDateToVectorIncome (string date)
     }
     return income;
 }
-bool OperationManager::checkCorrectnessFormat (string date)
+
+bool TransactionManager::checkFormatCorrectness (string date)
 {
-    bool isCorrectness = true;
+    bool isCorrect = true;
     if (date.length() != 10 )
-        isCorrectness = false;
+        isCorrect = false;
 
     for (int i = 0; i < date.length(); i++)
     {
         if (i == 4 || i == 7)
         {
             if (date[i] != '-')
-                isCorrectness = false;
+                isCorrect = false;
         }
         else
         {
             if (!isdigit(date[i]))
-                isCorrectness = false;
+                isCorrect = false;
         }
     }
-    if (isCorrectness == false)
+    if (isCorrect == false)
     {
-        cout << "format daty jest nie poprawny" << endl;
+        cout << "Date format is incorrect." << endl;
         Sleep(1500);
         return false;
     }
@@ -154,14 +114,15 @@ bool OperationManager::checkCorrectnessFormat (string date)
         return true;
 
 }
-bool OperationManager::checkTheTimeInterval(int year, int month, int day)
+
+bool TransactionManager::checkTheTimeInterval(int year, int month, int day)
 {
     bool isTheInterval = true;
     SYSTEMTIME systemTime;
     GetSystemTime(&systemTime);
     if(year > systemTime.wYear || year < 2000)
     {
-        cout << "Rok ktory podales nie miesci sie w przedziale 2000 - (obecny rok)" << endl;
+        cout << "The year you have entered is outside of 2000 - (current year) range" << endl;
         isTheInterval = false;
     }
     else if (year == systemTime.wYear)
@@ -169,63 +130,65 @@ bool OperationManager::checkTheTimeInterval(int year, int month, int day)
         if (month > systemTime.wMonth)
         {
             isTheInterval = false;
-            cout << "data ktora podales jest czasowo przekracza dzisiejsza date" << endl;
+            cout << "Date you have entered exceeds today't date" << endl;
         }
         else if (month == systemTime.wMonth)
         {
             if (day > systemTime.wDay)
             {
                 isTheInterval = false;
-                cout << "data ktora podales czasowo przekracza dzisiejsza date" << endl;
+                cout << "Date you have entered exceeds today't date" << endl;
             }
             else if (day == systemTime.wDay)
             {
-                cout << "podales dzisiejsza date" << endl;
+                cout << "You have entered today's date" << endl;
                 Sleep(1500);
             }
         }
     }
     return isTheInterval;
 }
-void OperationManager::addExpense()
+
+void TransactionManager::addExpense()
 {
     system("cls");
-    char character;
+    char choice;
     string date = "";
     string expenseName = "";
     string expenseValue ="";
     Expense expense;
-    cout << "Czy wydatek dotyczy dzisjszego dnia? potwierdz literka t " << endl;
-    character = auxiliaryMethods.loadCharacter();
-    if (character == 't')
+    cout << "Is the expense from (1) today or from (2) some specific day? " << endl;
+    cout << endl << "Your choice: ";
+    choice = auxiliaryMethods.loadCharacter();
+    if (choice == '1')
     {
-        SYSTEMTIME systemTime;
-        GetSystemTime(&systemTime);
-        expense.setYear(systemTime.wYear);
-        expense.setMonth(systemTime.wMonth);
-        expense.setDay(systemTime.wDay);
+    SYSTEMTIME systemTime;
+    GetSystemTime(&systemTime);
+    expense.setYear(systemTime.wYear);
+    expense.setMonth(systemTime.wMonth);
+    expense.setDay(systemTime.wDay);
     }
-    else
+    else if (choice == '2')
     {
         do
         {
             do
             {
-                cout << "podaj date przychodu w formacie rrrr-mm-dd: " << endl;
+                cout << "Enter Expense date in format 'yyyy-mm-dd': " << endl;
                 date = auxiliaryMethods.loadLine();
             }
-            while (!checkCorrectnessFormat(date));
+            while (!checkFormatCorrectness(date));
             expense = setDateToVectorExpense(date);
         }
         while(!checkTheTimeInterval(expense.getYear(), expense.getMonth(), expense.getDay() ));
 
 
     }
-    cout << "Czego dotyczy wydatek? " << endl;
+    cout << "What is the item of the income? " << endl;
     expenseName = auxiliaryMethods.loadLine();
     expense.setExpenseName(expenseName);
 
-    cout << "Podaj wartosc wydatek: " << endl;
+    cout << "Input the Expense amount: " << endl;
     expenseValue = auxiliaryMethods.loadLine();
     expenseValue = replaceCommaWithPeriod(expenseValue);
     expense.setExpenseValue(atof(expenseValue.c_str()));
@@ -233,10 +196,11 @@ void OperationManager::addExpense()
     expense.setExpenseIndex(assignExpenseIndex());
     fileWithExpense.addExpenseToFile(expense);
     expenses.push_back(expense);
-    cout << "Wydatek zostal dodany" << endl;
+    cout << "Expense added successfully" << endl;
     Sleep(1500);
 }
-Expense OperationManager::setDateToVectorExpense (string date)
+
+Expense TransactionManager::setDateToVectorExpense (string date)
 {
     date += '-';
     int length = date.length();
@@ -269,26 +233,29 @@ Expense OperationManager::setDateToVectorExpense (string date)
     }
     return expense;
 }
-void OperationManager::showBalanceSheetForTheCurrentMonth ()
+
+void TransactionManager::showBalanceSheetForTheCurrentMonth ()
 {
-    cout << "------------ Bilans z ostatniego miesiaca ------------" << endl;
-    cout << "Przychody: " << endl << endl;
-    showIncomeForTheSpecifitMonth (0);
+    system("cls");
+    cout << "------------ Current Month Balance ------------" << endl;
+    cout << "Incomes: " << endl << endl;
+    showIncomeForTheSpecificMonth (0);
     cout << "-------------------------------------------------------" << endl;
-    cout << "Wydatki: " << endl << endl;
-    showExpenseForTheSpecifitMonth (0);
+    cout << "Expenses: " << endl << endl;
+    showExpenseForTheSpecificMonth (0);
     cout << "-------------------------------------------------------" << endl;
     sum = incomeSum - expenseSum;
-    cout << "Suma przychodow: +" << incomeSum << endl;
-    cout << "Suma wydatkow: -" << expenseSum << endl;
-    cout << "Bilans z biezacego miesiaca wynosi: " << sum << endl;
+    cout << "Sum of incomes: +" << incomeSum << endl;
+    cout << "Sum of expenses: -" << expenseSum << endl;
+    cout << "Balance for the current month is: " << sum << endl;
     system ("pause");
     sum = 0;
     expenseSum = 0;
     incomeSum = 0;
 
 }
-void OperationManager::showIncomeForTheSpecifitMonth (int howManyMonthsBack)
+
+void TransactionManager::showIncomeForTheSpecificMonth (int howManyMonthsBack)
 {
     SYSTEMTIME systemTime;
     GetSystemTime(&systemTime);
@@ -299,15 +266,16 @@ void OperationManager::showIncomeForTheSpecifitMonth (int howManyMonthsBack)
         {
             if (incomes[i].getMonth () == (systemTime.wMonth - howManyMonthsBack))
             {
-                cout << "Nazwa operacji: " << incomes[i].getIncomeName() << endl;
-                cout << "Data operacji: " << incomes[i].getYear () << "-" << incomes[i].getMonth () << "-" << incomes[i].getDay () << endl;
-                cout << "Wartosc operacji: " << "+ " << incomes[i].getIncomeValue() << endl << endl;
+                cout << "Transaction name: " << incomes[i].getIncomeName() << endl;
+                cout << "Transaction date: " << incomes[i].getYear () << "-" << incomes[i].getMonth () << "-" << incomes[i].getDay () << endl;
+                cout << "Transaction amount: " << "+ " << incomes[i].getIncomeValue() << endl << endl;
                 incomeSum += incomes[i].getIncomeValue();
             }
         }
     }
 }
-void OperationManager::showExpenseForTheSpecifitMonth (int howManyMonthsBack)
+
+void TransactionManager::showExpenseForTheSpecificMonth (int howManyMonthsBack)
 {
     SYSTEMTIME systemTime;
     GetSystemTime(&systemTime);
@@ -318,33 +286,35 @@ void OperationManager::showExpenseForTheSpecifitMonth (int howManyMonthsBack)
         {
             if (expenses[i].getMonth () == (systemTime.wMonth - howManyMonthsBack))
             {
-                cout << "Nazwa operacji: " << expenses[i].getExpenseName() << endl;
-                cout << "Data operacji: " << expenses[i].getYear () << "-" << expenses[i].getMonth () << "-" << expenses[i].getDay () << endl;
-                cout << "Wartosc operacji: " << "- " << expenses[i].getExpenseValue() << endl << endl;
+                cout << "Transaction name: " << expenses[i].getExpenseName() << endl;
+                cout << "Transaction date: " << expenses[i].getYear () << "-" << expenses[i].getMonth () << "-" << expenses[i].getDay () << endl;
+                cout << "Transaction value: " << "- " << expenses[i].getExpenseValue() << endl << endl;
                 expenseSum += expenses[i].getExpenseValue();
             }
         }
     }
 }
-void OperationManager::showBalanceSheetForThePreviousMonth ()
+void TransactionManager::showBalanceSheetForThePreviousMonth ()
 {
-    cout << "------------ Bilans z poprzedniego miesiaca ------------" << endl;
-    cout << "Przychody: " << endl << endl;
-    showIncomeForTheSpecifitMonth (1);
+    system("cls");
+    cout << "--------------- Previous month balance ----------------" << endl;
+    cout << "Incomes: " << endl << endl;
+    showIncomeForTheSpecificMonth (1);
     cout << "-------------------------------------------------------" << endl;
-    cout << "Wydatki: " << endl << endl;
-    showExpenseForTheSpecifitMonth (1);
+    cout << "Expenses: " << endl << endl;
+    showExpenseForTheSpecificMonth (1);
     cout << "-------------------------------------------------------" << endl;
     sum = incomeSum - expenseSum;
-    cout << "Suma przychodow: +" << incomeSum << endl;
-    cout << "Suma wydatkow: -" << expenseSum << endl;
-    cout << "Bilans z poprzedniego miesiaca wynosi: " << sum << endl;
+    cout << "Sum of incomes: +" << incomeSum << endl;
+    cout << "Sum of expenses: -" << expenseSum << endl;
+    cout << "Balance for the previous month is: " << sum << endl;
     system ("pause");
     sum = 0;
     expenseSum = 0;
     incomeSum = 0;
 }
-void OperationManager::showBalanceSheetForTheSelectedPeriod ()
+
+void TransactionManager::showBalanceSheetForTheSelectedPeriod ()
 {
     system("cls");
     Date firstDate;
@@ -354,10 +324,10 @@ void OperationManager::showBalanceSheetForTheSelectedPeriod ()
     {
         do
         {
-            cout << "Podaj pocz¹tkowa date okresu w formacie rrrr-mm-dd: " << endl;
+            cout << "Enter starting date of the desired period in format 'rrrr-mm-dd': " << endl;
             date = auxiliaryMethods.loadLine();
         }
-        while (!checkCorrectnessFormat(date));
+        while (!checkFormatCorrectness(date));
         firstDate = setDateToVectorIncome(date);
     }
     while(!checkTheTimeInterval(firstDate.getYear(), firstDate.getMonth(), firstDate.getDay()));
@@ -366,33 +336,33 @@ void OperationManager::showBalanceSheetForTheSelectedPeriod ()
     {
         do
         {
-            cout << "Podaj koncowa date okresu w formacie rrrr-mm-dd: " << endl;
+            cout << "Enter finishing date of the desired period in format 'rrrr-mm-dd': " << endl;
             date = auxiliaryMethods.loadLine();
         }
-        while (!checkCorrectnessFormat(date));
+        while (!checkFormatCorrectness(date));
         secondDate = setDateToVectorIncome(date);
     }
     while(!checkTheTimeInterval(secondDate.getYear(), secondDate.getMonth(), secondDate.getDay()));
-    cout << "------------ Bilans z wybranego okresu ------------" << endl;
-    cout << "Przychody: " << endl << endl;
+    cout << "----------- Balance for the specific period -----------" << endl;
+    cout << "Incomes: " << endl << endl;
     showIncomeForTheSelectedPeriod(firstDate, secondDate);
     cout << "-------------------------------------------------------" << endl;
-    cout << "Wydatki: " << endl << endl;
+    cout << "Expenses: " << endl << endl;
     showExpenseForTheSelectedPeriod (firstDate, secondDate);
     cout << "-------------------------------------------------------" << endl;
     sum = incomeSum - expenseSum;
-    cout << "Suma przychodow: +" << incomeSum << endl;
-    cout << "Suma wydatkow: -" << expenseSum << endl;
-    cout << "Bilans z poprzedniego miesiaca wynosi: " << sum << endl;
+    cout << "Sum of incomes: +" << incomeSum << endl;
+    cout << "Sum of expenses: -" << expenseSum << endl;
+    cout << "Balance for the selected period is: " << sum << endl;
     system ("pause");
     sum = 0;
     expenseSum = 0;
     incomeSum = 0;
-
-
 }
-void OperationManager::showIncomeForTheSelectedPeriod (Date firstDate, Date secondDate)
+
+void TransactionManager::showIncomeForTheSelectedPeriod (Date firstDate, Date secondDate)
 {
+    system("cls");
     bool isItInTheRange;
     for (int i = 0; i < incomes.size(); i++)
     {
@@ -423,17 +393,18 @@ void OperationManager::showIncomeForTheSelectedPeriod (Date firstDate, Date seco
         }
         if (isItInTheRange == true)
         {
-            cout << "Nazwa operacji: " << incomes[i].getIncomeName() << endl;
-            cout << "Data operacji: " << incomes[i].getYear () << "-" << incomes[i].getMonth () << "-" << incomes[i].getDay () << endl;
-            cout << "Wartosc operacji: " << "+ " << incomes[i].getIncomeValue() << endl << endl;
+            cout << "Transaction name: " << incomes[i].getIncomeName() << endl;
+            cout << "Transaction date: " << incomes[i].getYear () << "-" << incomes[i].getMonth () << "-" << incomes[i].getDay () << endl;
+            cout << "Transaction value: " << "+ " << incomes[i].getIncomeValue() << endl << endl;
             incomeSum += incomes[i].getIncomeValue();
         }
     }
     cout << "wyszedlem" << endl;
 }
-void OperationManager::showExpenseForTheSelectedPeriod (Date firstDate, Date secondDate)
+
+void TransactionManager::showExpenseForTheSelectedPeriod (Date firstDate, Date secondDate)
 {
-    cout << "wszedlem" << endl;
+    system("cls");
     bool isItInTheRange;
     for (int i = 0; i < expenses.size(); i++)
     {
@@ -464,14 +435,15 @@ void OperationManager::showExpenseForTheSelectedPeriod (Date firstDate, Date sec
         }
         if (isItInTheRange == true)
         {
-            cout << "Nazwa operacji: " << expenses[i].getExpenseName() << endl;
-            cout << "Data operacji: " << expenses[i].getYear () << "-" << expenses[i].getMonth () << "-" << expenses[i].getDay () << endl;
-            cout << "Wartosc operacji: " << "+ " << expenses[i].getExpenseValue() << endl << endl;
+            cout << "Transaction name: " << expenses[i].getExpenseName() << endl;
+            cout << "Transaction date: " << expenses[i].getYear () << "-" << expenses[i].getMonth () << "-" << expenses[i].getDay () << endl;
+            cout << "Transaction value: " << "+ " << expenses[i].getExpenseValue() << endl << endl;
             expenseSum += expenses[i].getExpenseValue();
         }
     }
 }
-string OperationManager::replaceCommaWithPeriod (string value)
+
+string TransactionManager::replaceCommaWithPeriod (string value)
 {
     string newValue;
     for (int i = 0; i < value.length(); i++)
@@ -487,7 +459,8 @@ string OperationManager::replaceCommaWithPeriod (string value)
     }
     return newValue;
 }
-int OperationManager::assignIncomeIndex ()
+
+int TransactionManager::assignIncomeIndex ()
 {
     int index = 0;
     for (int i = 0; i < incomes.size(); i++)
@@ -499,7 +472,7 @@ int OperationManager::assignIncomeIndex ()
     }
     return index + 1;
 }
-int OperationManager::assignExpenseIndex()
+int TransactionManager::assignExpenseIndex()
 {
     int index = 0;
     for (int i = 0; i < expenses.size(); i++)

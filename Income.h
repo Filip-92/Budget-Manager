@@ -20,12 +20,5 @@ public:
     string getIncomeName ();
     float getIncomeValue ();
     int getIncomeIndex ();
-
-    int transactionId;
-    int userId;
-    string date;
-    int dayNr;
-    double amount;
-    string item;
 };
 #endif

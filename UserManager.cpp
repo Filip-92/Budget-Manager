@@ -1,21 +1,31 @@
 #include "UserManager.h"
 
+void UserManager::userRegistration()
+{
+    User user = inputNewUserData();
+
+    users.push_back(user);
+    fileWithUsers.addUserToFile(user);
+
+    cout << endl << "Account has been created successfully." << endl << endl;
+    system("pause");
+}
+
 User UserManager::inputNewUserData()
 {
     User user;
 
-    user.setId(getNewUserId());
-
+    user.setUserId(getNewUserId());
     string name, surname, login;
-    //do
+    do
     {
-        cout << "Input name: ";
+        cout << endl << "Input name: ";
         cin >> name;
         cout << "Input surname: ";
         cin >> surname;
         user.setName(name);
         user.setSurname(surname);
-    } //while (doesUserExist(user.getName()) == true && (user.getSurname()) == true);
+    } while (doesUserExist(name, surname));
 
     do
     {
@@ -37,7 +47,7 @@ int UserManager::getNewUserId()
     if (users.empty() == true)
         return 1;
     else
-        return users.back().getId() + 1;
+        return users.back().getUserId() + 1;
 }
 
 bool UserManager::doesLoginExist(string login)
@@ -46,8 +56,10 @@ bool UserManager::doesLoginExist(string login)
     {
         if (users[i].getLogin() == login)
         {
-            cout <<  "User with such login already exists." << endl;
-            return true;
+            {
+                cout << endl << "User with such login already exists." << endl;
+                return true;
+            }
         }
     }
     return false;
@@ -66,6 +78,18 @@ bool UserManager::doesUserExist(string name, string surname)
     return false;
 }
 
+void UserManager::displayAllUsers()
+{
+    for (int i = 0; i < users.size(); i++)
+    {
+        cout << users[i].getUserId() << endl;
+        cout << users[i].getLogin() << endl;
+        cout << users[i].getPassword() << endl;
+        cout << users[i].getName() << endl;
+        cout << users[i].getSurname() << endl;
+    }
+}
+
 string UserManager::changeTheFirstLetterToUppercaseAndTheRestToLowercase(string text)
 {
     if (!text.empty())
@@ -76,31 +100,33 @@ string UserManager::changeTheFirstLetterToUppercaseAndTheRestToLowercase(string 
     return text;
 }
 
-int UserManager::userLoggingIn()
+int UserManager::userLogIn()
 {
     User user;
-    string login = "", password = "";
+    string login = "", password= "";
 
-    cout << "Input login: ";
-    cin >> login;
+    cout << endl << "Input login: ";
+    login = auxiliaryMethods.loadLine();
 
-    vector <User>::iterator itr = users.begin();
-    while (itr != users.end())
+    for (int i = 0 ; i < users.size(); i++)
     {
-        if (itr->getLogin() == login)
+        if (login == users[i].getLogin())
         {
-            for (int attempts = 3; attempts > 0; attempts--)
+            for (int attempt = 3; attempt > 0; attempt--)
             {
-                cout << "Input your password. Attempts left: " << attempts << ": ";
-                cin >> password;
-                user.setPassword(password);
+                cout << "Enter your password. Attempts left: "  << attempt << ": ";
+                password = auxiliaryMethods.loadLine();
 
-                if (itr->getPassword() == password)
+                if (users[i].getPassword() == password)
                 {
                     cout << endl << "Logged in successfully." << endl << endl;
                     system("pause");
-                    loggedInUserId = itr->getId();
-                    return loggedInUserId;
+                    loggedInUser.setLogin(users[i].getLogin());
+                    loggedInUser.setPassword(users[i].getPassword());
+                    loggedInUser.setUserId(users[i].getUserId());
+                    loggedInUser.setName(users[i].getName());
+                    loggedInUser.setSurname(users[i].getSurname());
+                    return loggedInUser.getUserId();
                 }
             }
             cout << "Incorrect password has been entered 3 times." << endl;
@@ -113,51 +139,42 @@ int UserManager::userLoggingIn()
     return 0;
 }
 
-void UserManager::userLogout()
+void UserManager::signOutUser ()
 {
-    loggedInUserId = 0;
+    loggedInUser.setUserId(0);
 }
 
-bool UserManager::isUserLoggedIn()
+bool UserManager::isTheUserSignIn()
 {
-    if (loggedInUserId > 0) {
+    if (loggedInUser.getUserId() > 0)
         return true;
-    }
     else
         return false;
 }
 
-int UserManager::getLoggedInUserId()
+User UserManager::getLoggedInUser()
 {
-    return loggedInUserId;
+    return loggedInUser;
 }
 
-void UserManager::userRegistration() {
-
-    User user = inputNewUserData();
-    users.push_back(user);
-    fileWithUsers.saveUsersToFile(users);
-
-    cout << endl << "Account has been created successfully" << endl << endl;
-    system("pause");
-}
-
-void UserManager::changePasswordOfLoggedUser()
+void UserManager::changePasswordOfLoggedUser ()
 {
+    system("cls");
     string newPassword = "";
     string newPassword1 = "";
     cout << "Input new password: ";
-    cin >> newPassword;
+    newPassword = auxiliaryMethods.loadLine();;
     cout << "Please repeat your new password: ";
-    cin >> newPassword1;
+    newPassword1 = auxiliaryMethods.loadLine();;
 
-    for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++)
+    for (int i = 0; i < users.size(); i++)
     {
-        if (itr->getId() == loggedInUserId)
+        if (users[i].getUserId () == loggedInUser.getUserId())
         {
             if (newPassword == newPassword1)
             {
-            itr->setPassword(newPassword);
+            users[i].setPassword(newPassword);
+            loggedInUser.setPassword(newPassword);
             cout << "Password has been changed successfully." << endl << endl;
             system("pause");
             }
@@ -165,22 +182,5 @@ void UserManager::changePasswordOfLoggedUser()
                 cout << "Passwords do not match each other. Try again.";
         }
     }
-    fileWithUsers.saveUsersToFile(users);
-}
-
-void UserManager::displayAllUsers()
-{
-    for (int i = 0; i < users.size(); i++) {
-        cout << users[i].getId() << "|";
-        cout << users[i].getName() << "|";
-        cout << users[i].getSurname() << "|";
-        cout << users[i].getLogin() << "|";
-        cout << users[i].getPassword() << endl;
-    }
-    system("pause");
-}
-
-void UserManager::saveAllUsersInTheFile()
-{
-    fileWithUsers.saveUsersToFile(users);
+    fileWithUsers.changePasswordSignInUser (loggedInUser);
 }

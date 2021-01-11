@@ -1,55 +1,71 @@
 #include "FileWithUsers.h"
 
-void FileWithUsers::saveUsersToFile (vector <User> users)
+void FileWithUsers::addUserToFile (User user)
 {
     CMarkup xml;
     bool fileExists = xml.Load( getNameFile() );
     if (!fileExists)
     {
-        xml.SetDoc( "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" );
-        xml.AddElem("USERS");
+        xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+        xml.AddElem("Users");
     }
+    xml.FindElem();
     xml.IntoElem();
-    for (int i=0;i<users.size();i++)
-    {
-        xml.AddElem("USERS");
-        xml.IntoElem();
-        xml.AddElem("ID",users.at(i).getId());
-        xml.AddElem("NAME",users.at(i).getName());
-        xml.AddElem("SURNAME",users.at(i).getSurname());
-        xml.AddElem("LOGIN",users.at(i).getLogin());
-        xml.AddElem("PASSWORD",users.at(i).getPassword());
-        xml.OutOfElem();
-    }
+    xml.AddElem("User");
+    xml.IntoElem();
+    xml.AddElem("UserId", user.getUserId());
+    xml.AddElem("Login", user.getLogin());
+    xml.AddElem("Password", user.getPassword());
+    xml.AddElem("Name", user.getName());
+    xml.AddElem("Surname", user.getSurname());
     xml.Save(getNameFile());
 }
-
-vector <User> FileWithUsers::loadUsersFromTheFile()
+vector <User> FileWithUsers::loadUsersFromFile()
 {
-    User user;
-    vector <User> users;
+    vector<User> users;
     CMarkup xml;
     int i = 0;
     xml.Load(getNameFile());
-        xml.FindElem("USERS");
+    while (xml.FindChildElem("User"))
+    {
+        users.push_back(User());
         xml.IntoElem();
-        while ( xml.FindElem("USERS")) {
-            xml.IntoElem();
-            xml.FindElem("ID");
-            user.setId(stoi(xml.GetData()));
-            xml.FindElem("NAME");
-            user.name=xml.GetData();
-            xml.FindElem("SURNAME");
-            user.surname=xml.GetData();
-            xml.FindElem("LOGIN");
-            user.login=xml.GetData();
-            xml.FindElem("PASSWORD");
-            user.password=xml.GetData();
-            xml.OutOfElem();
-            users.push_back(user);
-        }
-        cout << "Number of users is: " << users.size() << endl;
-        Sleep(100);
-        return users;
+        xml.FindChildElem("UserId");
+        users[i].setUserId(atoi(xml.GetChildData().c_str()));
+        xml.FindChildElem("Login");
+        users[i].setLogin(xml.GetChildData());
+        xml.FindChildElem("Password");
+        users[i].setPassword(xml.GetChildData());
+        xml.FindChildElem("Name");
+        users[i].setName(xml.GetChildData());
+        xml.FindChildElem("Surname");
+        users[i].setSurname(xml.GetChildData());
+        xml.OutOfElem();
+        i++;
+    }
 
+    return users;
 }
+void FileWithUsers::changePasswordSignInUser (User loggedInUser)
+{
+    CMarkup xml;
+    xml.Load(getNameFile());
+    while (xml.FindChildElem("User"))
+    {
+        xml.IntoElem();
+        xml.FindChildElem("UserId");
+        if (atoi(xml.GetChildData().c_str()) == loggedInUser.getUserId())
+        {
+            xml.FindChildElem("Password");
+            xml.RemoveChildElem();
+            xml.AddChildElem("Password", loggedInUser.getPassword());
+            xml.Save(getNameFile());
+            return;
+        }
+        xml.OutOfElem();
+    }
+}
+
+
+
+

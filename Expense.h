@@ -7,12 +7,12 @@ using namespace std;
 
 class Expense : public Date
 {
+
     string expenseName;
     float expenseValue;
     int expenseIndex;
 
 public:
-
     void setExpenseName(string);
     void setExpenseValue (float);
     void setExpenseIndex (int);

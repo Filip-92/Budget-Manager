@@ -1,4 +1,3 @@
-
 #include "AuxiliaryMethods.h"
 
 
@@ -51,13 +50,4 @@ string AuxiliaryMethods::converionFloatToString( float number )
     FloatToStr.clear();
 
     return str;
-}
-
-double AuxiliaryMethods::fixDouble(string number)
-{
-    size_t found;
-    found=number.find(',');
-    if (found!=string::npos)
-        number.replace(found,1,1,'.');
-    return stod(number);
 }

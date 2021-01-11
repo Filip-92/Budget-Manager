@@ -7,7 +7,7 @@ void FileWithExpense::addExpenseToFile (Expense expense)
     if (!fileExists)
     {
         xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem("Expense");
+        xml.AddElem("Expenses");
     }
     if (fileExists)
     {
@@ -16,10 +16,10 @@ void FileWithExpense::addExpenseToFile (Expense expense)
         {
             xml.IntoElem();
             xml.FindChildElem("UserId");
-            if (atoi(xml.GetChildData().c_str()) == loggedInUser.getId())
+            if (atoi(xml.GetChildData().c_str()) == loggedInUser.getUserId())
             {
                 xml.IntoElem();
-                xml.AddElem("Expenses");
+                xml.AddElem("Expense");
                 xml.IntoElem();
                 xml.AddElem("Index", expense.getExpenseIndex());
                 xml.AddElem("ExpenseName", expense.getExpenseName());
@@ -38,8 +38,8 @@ void FileWithExpense::addExpenseToFile (Expense expense)
     xml.IntoElem();
     xml.AddElem("User");
     xml.IntoElem();
-    xml.AddElem("UserId", loggedInUser.getId());
-    xml.AddElem("Expenses");
+    xml.AddElem("UserId", loggedInUser.getUserId());
+    xml.AddElem("Expense");
     xml.IntoElem();
     xml.AddElem("Index", expense.getExpenseIndex());
     xml.AddElem("ExpenseName", expense.getExpenseName());
@@ -52,7 +52,7 @@ void FileWithExpense::addExpenseToFile (Expense expense)
 
 vector <Expense> FileWithExpense::loadExpenseFromFile()
 {
-    vector <Expense> expense;
+    vector <Expense> expenses;
     CMarkup xml;
     int i = 0;
     xml.Load(getNameFile());
@@ -60,30 +60,31 @@ vector <Expense> FileWithExpense::loadExpenseFromFile()
     {
         xml.IntoElem();
         xml.FindChildElem("UserId");
-        if (atoi(xml.GetChildData().c_str()) == loggedInUser.getId())
+        if (atoi(xml.GetChildData().c_str()) == loggedInUser.getUserId())
         {
 
-            while (xml.FindChildElem("Expenses"))
+            while (xml.FindChildElem("Expense"))
             {
-                expense.push_back(Expense());
+                expenses.push_back(Expense());
                 xml.IntoElem();
                 xml.FindChildElem("Index");
-                expense[i].setExpenseIndex (atoi(xml.GetChildData().c_str()));
-                xml.FindChildElem("IncomeName");
-                expense[i].setExpenseName(xml.GetChildData());
-                xml.FindChildElem("IncomeYear");
-                expense[i].setYear(atoi(xml.GetChildData().c_str()));
-                xml.FindChildElem("IncomeMonth");
-                expense[i].setMonth(atoi(xml.GetChildData().c_str()));
-                xml.FindChildElem("IncomeDay");
-                expense[i].setDay(atoi(xml.GetChildData().c_str()));
-                xml.FindChildElem("IncomeValue");
-                expense[i].setExpenseValue(atof(xml.GetChildData().c_str()));
+                expenses[i].setExpenseIndex (atoi(xml.GetChildData().c_str()));
+                xml.FindChildElem("ExpenseName");
+                expenses[i].setExpenseName(xml.GetChildData());
+                xml.FindChildElem("ExpenseYear");
+                expenses[i].setYear(atoi(xml.GetChildData().c_str()));
+                xml.FindChildElem("ExpenseMonth");
+                expenses[i].setMonth(atoi(xml.GetChildData().c_str()));
+                xml.FindChildElem("ExpenseDay");
+                expenses[i].setDay(atoi(xml.GetChildData().c_str()));
+                xml.FindChildElem("ExpenseValue");
+                expenses[i].setExpenseValue(atof(xml.GetChildData().c_str()));
                 xml.OutOfElem();
                 i++;
             }
-            return expense;
+            return expenses;
         }
         xml.OutOfElem();
     }
 }
+

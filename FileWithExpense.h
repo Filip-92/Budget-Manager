@@ -1,7 +1,7 @@
 #ifndef FILEWITHEXPENSE_H
 #define FILEWITHEXPENSE_H
 
-#include "XmlFile.h"
+#include "TextFile.h"
 #include "Markup.h"
 #include "Expense.h"
 #include "User.h"
@@ -10,16 +10,15 @@
 
 using namespace std;
 
-class FileWithExpense : public XmlFile
+class FileWithExpense: public TextFile
 {
     AuxiliaryMethods auxiliaryMethods;
     User loggedInUser;
-
 public:
-    FileWithExpense(string nameFileWtihExpense, User LOGGEDINUSER) : XmlFile(nameFileWtihExpense), loggedInUser(LOGGEDINUSER) {};
-    void addExpenseToFile (Expense expense);
+    FileWithExpense (string nameFileWtihExpense, User LOGGEDINUSER) : TextFile(nameFileWtihExpense), loggedInUser(LOGGEDINUSER) {};
+    void addExpenseToFile (Expense);
     vector <Expense> loadExpenseFromFile();
-};
 
+};
 #endif
 

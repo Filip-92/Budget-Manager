@@ -14,6 +14,5 @@ class AuxiliaryMethods
     int conversionStringToInt(string integer);
     string converionIntToString(int integer);
     string converionFloatToString( float number );
-    double fixDouble(string number);
 };
 #endif

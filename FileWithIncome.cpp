@@ -17,7 +17,7 @@ void FileWithIncome::addIncomeToFile (Income income)
         {
             xml.IntoElem();
             xml.FindChildElem("UserId");
-            if (atoi(xml.GetChildData().c_str()) == loggedInUser.getId())
+            if (atoi(xml.GetChildData().c_str()) == loggedInUser.getUserId())
             {
                 xml.IntoElem();
                 xml.AddElem("Incomes");
@@ -39,7 +39,7 @@ void FileWithIncome::addIncomeToFile (Income income)
     xml.IntoElem();
     xml.AddElem("User");
     xml.IntoElem();
-    xml.AddElem("UserId", loggedInUser.getId());
+    xml.AddElem("UserId", loggedInUser.getUserId());
     xml.AddElem("Incomes");
     xml.IntoElem();
     xml.AddElem("Index", income.getIncomeIndex());
@@ -61,7 +61,7 @@ vector <Income> FileWithIncome::loadIncomeFromFile()
     {
         xml.IntoElem();
         xml.FindChildElem("UserId");
-        if (atoi(xml.GetChildData().c_str()) == loggedInUser.getId())
+        if (atoi(xml.GetChildData().c_str()) == loggedInUser.getUserId())
         {
 
             while (xml.FindChildElem("Incomes"))

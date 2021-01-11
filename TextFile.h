@@ -1,18 +1,18 @@
-#ifndef XMLFILE_H
-#define XMLFILE_H
+#ifndef TEXTFILE_H
+#define TEXTFILE_H
 
 #include <iostream>
 #include "Markup.h"
 
 using namespace std;
 
-class XmlFile
+class TextFile
 {
         const string NAME_FILE;
 
 public:
 
-    XmlFile(string nameFile) : NAME_FILE(nameFile) {
+    TextFile(string nameFile) : NAME_FILE(nameFile) {
     }
 
     string getNameFile()
