@@ -16,6 +16,7 @@ public:
     void setIncomeName(string);
     void setIncomeValue (float);
     void setIncomeIndex (int);
+    int userId;
 
     string getIncomeName ();
     float getIncomeValue ();

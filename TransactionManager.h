@@ -10,6 +10,7 @@
 #include "FileWithExpense.h"
 #include "Date.h"
 #include <stdlib.h>
+#include <algorithm>
 
 #include <vector>
 
@@ -58,5 +59,11 @@ public:
     void showBalanceSheetForTheCurrentMonth ();
     void showBalanceSheetForThePreviousMonth ();
     void showBalanceSheetForTheSelectedPeriod ();
+    void getBalance(int startDate, int endDate);
+    void getBalanceCurrentMonth();
+    void getBalanceLastMonth();
+    void getBalanceCustom();
+    void printExpenses(vector<Expense> transactions);
+    void printIncomes(vector<Income> transactions);
 };
 #endif
