@@ -1,0 +1,7 @@
+bin/
+obj/
+plan/
+BudgetManager - Copy.*
+users.xml
+income.xml
+expense.xml
