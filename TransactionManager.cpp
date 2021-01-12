@@ -115,7 +115,6 @@ bool TransactionManager::checkFormatCorrectness (string date)
 
 }
 
-
 bool TransactionManager::checkTheTimeInterval(int year, int month, int day)
 {
     bool isTheInterval = true;
@@ -131,14 +130,14 @@ bool TransactionManager::checkTheTimeInterval(int year, int month, int day)
         if (month > systemTime.wMonth)
         {
             isTheInterval = false;
-            cout << "Date you have entered exceeds today's date" << endl;
+            cout << "Date you have entered exceeds today't date" << endl;
         }
         else if (month == systemTime.wMonth)
         {
             if (day > systemTime.wDay)
             {
                 isTheInterval = false;
-                cout << "Date you have entered exceeds today's date" << endl;
+                cout << "Date you have entered exceeds today't date" << endl;
             }
             else if (day == systemTime.wDay)
             {
@@ -267,10 +266,6 @@ void TransactionManager::showIncomeForTheSpecificMonth (int howManyMonthsBack)
         {
             if (incomes[i].getMonth () == (systemTime.wMonth - howManyMonthsBack))
             {
-                sort(incomes.begin(), incomes.end(), [](Income& lhs, Income& rhs)
-                {
-                    return lhs.getDay() < rhs.getDay();
-                });
                 cout << "Transaction name: " << incomes[i].getIncomeName() << endl;
                 cout << "Transaction date: " << incomes[i].getYear () << "-" << incomes[i].getMonth () << "-" << incomes[i].getDay () << endl;
                 cout << "Transaction amount: " << "+ " << incomes[i].getIncomeValue() << endl << endl;
@@ -291,10 +286,6 @@ void TransactionManager::showExpenseForTheSpecificMonth (int howManyMonthsBack)
         {
             if (expenses[i].getMonth () == (systemTime.wMonth - howManyMonthsBack))
             {
-                sort(expenses.begin(), expenses.end(), [](Expense& lhs, Expense& rhs)
-                {
-                    return lhs.getDay() < rhs.getDay();
-                });
                 cout << "Transaction name: " << expenses[i].getExpenseName() << endl;
                 cout << "Transaction date: " << expenses[i].getYear () << "-" << expenses[i].getMonth () << "-" << expenses[i].getDay () << endl;
                 cout << "Transaction value: " << "- " << expenses[i].getExpenseValue() << endl << endl;
@@ -303,7 +294,6 @@ void TransactionManager::showExpenseForTheSpecificMonth (int howManyMonthsBack)
         }
     }
 }
-
 void TransactionManager::showBalanceSheetForThePreviousMonth ()
 {
     system("cls");
@@ -372,6 +362,7 @@ void TransactionManager::showBalanceSheetForTheSelectedPeriod ()
 
 void TransactionManager::showIncomeForTheSelectedPeriod (Date firstDate, Date secondDate)
 {
+    system("cls");
     bool isItInTheRange;
     for (int i = 0; i < incomes.size(); i++)
     {
@@ -408,10 +399,12 @@ void TransactionManager::showIncomeForTheSelectedPeriod (Date firstDate, Date se
             incomeSum += incomes[i].getIncomeValue();
         }
     }
+    cout << "wyszedlem" << endl;
 }
 
 void TransactionManager::showExpenseForTheSelectedPeriod (Date firstDate, Date secondDate)
 {
+    system("cls");
     bool isItInTheRange;
     for (int i = 0; i < expenses.size(); i++)
     {
@@ -479,7 +472,6 @@ int TransactionManager::assignIncomeIndex ()
     }
     return index + 1;
 }
-
 int TransactionManager::assignExpenseIndex()
 {
     int index = 0;
