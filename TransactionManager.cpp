@@ -131,14 +131,14 @@ bool TransactionManager::checkTheTimeInterval(int year, int month, int day)
         if (month > systemTime.wMonth)
         {
             isTheInterval = false;
-            cout << "Date you have entered exceeds today't date" << endl;
+            cout << "Date you have entered exceeds today's date" << endl;
         }
         else if (month == systemTime.wMonth)
         {
             if (day > systemTime.wDay)
             {
                 isTheInterval = false;
-                cout << "Date you have entered exceeds today't date" << endl;
+                cout << "Date you have entered exceeds today's date" << endl;
             }
             else if (day == systemTime.wDay)
             {
@@ -372,7 +372,6 @@ void TransactionManager::showBalanceSheetForTheSelectedPeriod ()
 
 void TransactionManager::showIncomeForTheSelectedPeriod (Date firstDate, Date secondDate)
 {
-    system("cls");
     bool isItInTheRange;
     for (int i = 0; i < incomes.size(); i++)
     {
@@ -409,12 +408,10 @@ void TransactionManager::showIncomeForTheSelectedPeriod (Date firstDate, Date se
             incomeSum += incomes[i].getIncomeValue();
         }
     }
-    cout << "wyszedlem" << endl;
 }
 
 void TransactionManager::showExpenseForTheSelectedPeriod (Date firstDate, Date secondDate)
 {
-    system("cls");
     bool isItInTheRange;
     for (int i = 0; i < expenses.size(); i++)
     {

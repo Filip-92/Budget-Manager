@@ -58,6 +58,10 @@ int main()
             case '7':
                     budgetManager.signOutUser();
                 break;
+            default:
+                cout << endl << "No such option in the menu available." << endl << endl;
+                system("pause");
+                break;
             }
         }
 

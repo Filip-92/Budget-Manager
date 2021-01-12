@@ -13,7 +13,6 @@ class Expense : public Date
     int expenseIndex;
 
 public:
-    int userId;
     void setExpenseName(string);
     void setExpenseValue (float);
     void setExpenseIndex (int);

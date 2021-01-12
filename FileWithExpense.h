@@ -14,6 +14,7 @@ class FileWithExpense: public TextFile
 {
     AuxiliaryMethods auxiliaryMethods;
     User loggedInUser;
+
 public:
     FileWithExpense (string nameFileWtihExpense, User LOGGEDINUSER) : TextFile(nameFileWtihExpense), loggedInUser(LOGGEDINUSER) {};
     void addExpenseToFile (Expense);

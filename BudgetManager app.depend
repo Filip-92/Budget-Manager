@@ -1,0 +1,125 @@
+# depslib dependency file v1.0
+1610452605 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\auxiliarymethods.cpp
+	"AuxiliaryMethods.h"
+
+1610109860 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\auxiliarymethods.h
+	<iostream>
+	<sstream>
+
+1610392109 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\budgetmanager.cpp
+	"BudgetManager.h"
+
+1610386418 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\budgetmanager.h
+	<iostream>
+	"UserManager.h"
+	"AuxiliaryMethods.h"
+	"TransactionManager.h"
+	"User.h"
+
+1610386119 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\usermanager.h
+	"User.h"
+	"FileWithUsers.h"
+	"AuxiliaryMethods.h"
+	<vector>
+	<algorithm>
+
+1610109860 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\user.h
+	<iostream>
+
+1610109860 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\filewithusers.h
+	"TextFile.h"
+	"Markup.h"
+	"User.h"
+	<vector>
+
+1610109860 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\textfile.h
+	<iostream>
+	"Markup.h"
+
+1610109860 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\markup.h
+	<stdlib.h>
+	<string.h>
+	<string>
+	<afx.h>
+
+1610393121 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\transactionmanager.h
+	"User.h"
+	"AuxiliaryMethods.h"
+	"Income.h"
+	<windows.h>
+	"FileWithIncome.h"
+	"Expense.h"
+	"FileWithExpense.h"
+	"Date.h"
+	<stdlib.h>
+	<algorithm>
+	<vector>
+
+1610393121 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\income.h
+	<iostream>
+	"Date.h"
+
+1610109860 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\date.h
+	<iostream>
+	"AuxiliaryMethods.h"
+
+1610109860 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\filewithincome.h
+	"TextFile.h"
+	"Markup.h"
+	"Income.h"
+	"User.h"
+	"AuxiliaryMethods.h"
+	<vector>
+
+1610393120 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\expense.h
+	<iostream>
+	"Date.h"
+	"User.h"
+
+1610393120 c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\filewithexpense.h
+	"TextFile.h"
+	"Markup.h"
+	"Expense.h"
+	"User.h"
+	"AuxiliaryMethods.h"
+	<vector>
+
+1610386508 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\date.cpp
+	"Date.h"
+
+1610109860 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\expense.cpp
+	"Expense.h"
+
+1610109860 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\filewithexpense.cpp
+	"FileWithExpense.h"
+
+1610109860 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\filewithincome.cpp
+	"FileWithIncome.h"
+
+1610109860 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\filewithusers.cpp
+	"FileWithUsers.h"
+
+1610109860 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\income.cpp
+	"Income.h"
+
+1610452605 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\main.cpp
+	<iostream>
+	"BudgetManager.h"
+
+1610109860 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\markup.cpp
+	<stdio.h>
+	"Markup.h"
+	<errno.h>
+	<iconv.h>
+	<windows.h>
+	<mbstring.h>
+
+1610452605 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\transactionmanager.cpp
+	"TransactionManager.h"
+
+1610109860 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\user.cpp
+	"User.h"
+
+1610387479 source:c:\users\id01595\desktop\aplikacja do przychodów\budgetmanager - copy\usermanager.cpp
+	"UserManager.h"
+
